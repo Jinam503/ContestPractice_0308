@@ -47,8 +47,8 @@ public class Player : MonoBehaviour
     private void Shoot()
     {
         if (curShootDelay < maxShootDelay) return;
-        Vector3 firstBulletPos = new Vector3(transform.position.x - 0.15f, transform.position.y, 0);
-        Vector3 secondBulletPos = new Vector3(transform.position.x + 0.15f, transform.position.y, 0);
+        Vector3 firstBulletPos = new Vector3(transform.position.x - 0.15f, transform.position.y+ 0.4f, 0);
+        Vector3 secondBulletPos = new Vector3(transform.position.x + 0.15f, transform.position.y+ 0.4f, 0);
         Instantiate(playerBullet, firstBulletPos, transform.rotation);
         Instantiate(playerBullet, secondBulletPos, transform.rotation);
         curShootDelay = 0;
@@ -80,10 +80,16 @@ public class Player : MonoBehaviour
             case "B":
                 isTriggerB = true;
                 break;
-            case "SniperBullet":
-                hp -= 5 ;
-                break;
         }
+        if(collision.gameObject.tag == "EnemyBullet")
+        {
+            Bullet b = collision.gameObject.GetComponent<Bullet>();
+            Onhit(b.damage);
+        }
+    }
+    void Onhit(int damage)
+    {
+        hp -= damage;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {

@@ -6,13 +6,15 @@ public class Sniper : Enemy
 {
     public GameObject warningBox;
     public GameObject bullet;
-    public Transform target;
+    
 
     private bool isAiming = true;
     SpriteRenderer warningBoxSpritrRenderer;
-    void Start()
+    protected override void Awake()
     {
+        base.Awake();
         hp = 10;
+        
         warningBoxSpritrRenderer = warningBox.GetComponent<SpriteRenderer>();
         StartCoroutine(Attack());
 
@@ -23,8 +25,7 @@ public class Sniper : Enemy
         if (isAiming)
         {
             Vector3 dir = target.position - transform.position;
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.rotation = Quaternion.FromToRotation(Vector2.up, dir);
         }
         
         
@@ -33,7 +34,6 @@ public class Sniper : Enemy
     {
         
         warningBox.gameObject.SetActive(true);
-        bullet.gameObject.SetActive(false);
         warningBoxSpritrRenderer.material.color =
             new Color(warningBoxSpritrRenderer.material.color.r,
                       warningBoxSpritrRenderer.material.color.g,
@@ -69,8 +69,11 @@ public class Sniper : Enemy
         yield return new WaitForSeconds(1);
         warningBox.gameObject.SetActive(false);
         bullet.gameObject.SetActive(true);
+        Vector2 vec = new Vector2(transform.position.x, transform.position.y + 2.5f);
+        GameObject a = Instantiate(bullet, vec, transform.rotation);
+        
         yield return new WaitForSeconds(1);
-        bullet.gameObject.SetActive(false);
+        Destroy(a);
         isAiming = true;
         yield return new WaitForSeconds(5);
         StartCoroutine(Attack());

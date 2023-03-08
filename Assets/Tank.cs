@@ -5,8 +5,9 @@ using UnityEngine;
 public class Tank : Enemy
 {
     // Start is called before the first frame update
-    void Start()
+    protected override void Awake()
     {
+        base.Awake();
         hp = 70;
     }
     void Update()
