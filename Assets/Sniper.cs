@@ -34,6 +34,7 @@ public class Sniper : Enemy
     {
         
         warningBox.gameObject.SetActive(true);
+        bullet.gameObject.SetActive(false);
         warningBoxSpritrRenderer.material.color =
             new Color(warningBoxSpritrRenderer.material.color.r,
                       warningBoxSpritrRenderer.material.color.g,
@@ -69,11 +70,8 @@ public class Sniper : Enemy
         yield return new WaitForSeconds(1);
         warningBox.gameObject.SetActive(false);
         bullet.gameObject.SetActive(true);
-        Vector2 vec = new Vector2(transform.position.x, transform.position.y + 2.5f);
-        GameObject a = Instantiate(bullet, vec, transform.rotation);
-        
         yield return new WaitForSeconds(1);
-        Destroy(a);
+        bullet.gameObject.SetActive(false);
         isAiming = true;
         yield return new WaitForSeconds(5);
         StartCoroutine(Attack());

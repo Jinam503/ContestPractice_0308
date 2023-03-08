@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     private float curShootDelay;
     public float maxShootDelay;
 
+    public bool cantDie;
+
     public int hp = 10;
 
     public Image hpBar;
@@ -20,9 +22,12 @@ public class Player : MonoBehaviour
     private bool isTriggerB = false;
     private bool isTriggerL = false;
     private bool isTriggerR = false;
+
+    SpriteRenderer sr;
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
+        sr = GetComponent<SpriteRenderer>();
         gameOverPanel.gameObject.SetActive(false);
         gameObject.SetActive(true);
     }
@@ -81,7 +86,7 @@ public class Player : MonoBehaviour
                 isTriggerB = true;
                 break;
         }
-        if(collision.gameObject.tag == "EnemyBullet")
+        if(collision.gameObject.tag == "EnemyBullet" && !cantDie)
         {
             Bullet b = collision.gameObject.GetComponent<Bullet>();
             Onhit(b.damage);
@@ -89,7 +94,22 @@ public class Player : MonoBehaviour
     }
     void Onhit(int damage)
     {
+        cantDie = true;
         hp -= damage;
+        sr.material.color =
+           new Color(sr.material.color.r,
+                     sr.material.color.g,
+                     sr.material.color.b, 0.5f);
+        Invoke("ReturnColor", 1f);
+    }
+    void ReturnColor()
+    {
+        
+        sr.material.color =
+              new Color(sr.material.color.r,
+                        sr.material.color.g,
+                        sr.material.color.b, 1f);
+        cantDie = false;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
