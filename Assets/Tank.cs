@@ -10,8 +10,9 @@ public class Tank : Enemy
         base.Awake();
         hp = 70;
     }
-    void Update()
+    protected override void Update()
     {
-        if (hp <= 0) Destroy(gameObject);
+        base.Update();
+        if (hp <= 0) Destroy(gameObject);   
     }
 }

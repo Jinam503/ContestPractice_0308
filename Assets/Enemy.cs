@@ -9,13 +9,23 @@ public class Enemy : MonoBehaviour
 
     protected bool canDamage = true;
 
+    protected bool moving = true;
+
     protected Transform target;
+    protected Transform targetPos;
 
     private SpriteRenderer sr;
     protected virtual void Awake()
     {
         target = GameObject.Find("Player").transform;
         sr = gameObject.GetComponent<SpriteRenderer>();
+    }
+    protected virtual void Update()
+    {
+        if (transform.position != targetPos.position)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPos.position, 5f * Time.deltaTime);
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -27,7 +37,7 @@ public class Enemy : MonoBehaviour
     }
     public void MoveToTarget(Transform t)
     {
-        transform.position = Vector2.MoveTowards(transform.position, t.position, Time.deltaTime);
+        targetPos = t;
     }
     void Onhit(int damage)
     {

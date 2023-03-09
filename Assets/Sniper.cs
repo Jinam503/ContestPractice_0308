@@ -19,8 +19,9 @@ public class Sniper : Enemy
         StartCoroutine(Attack());
 
     }
-    void Update()
+    protected override void Update()
     {
+        base.Update();
         if (hp <= 0) Destroy(gameObject);
         if (isAiming)
         {
