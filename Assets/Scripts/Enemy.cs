@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     public int hp;
     protected bool canAttack;
 
-    protected bool canDamage = true;
+    
 
     protected bool moving = true;
 
@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.tag == "PlayerBullet")
         {
             Bullet b = collision.gameObject.GetComponent<Bullet>();
-            if(canDamage) Onhit(b.damage);
+            Onhit(b.damage);
         }
     }
     public void MoveToTarget(Transform t)
@@ -42,7 +42,6 @@ public class Enemy : MonoBehaviour
     void Onhit(int damage)
     {
         hp -= damage;
-        canDamage = false;
         sr.material.color =
            new Color(sr.material.color.r,
                      sr.material.color.g,
@@ -56,7 +55,6 @@ public class Enemy : MonoBehaviour
               new Color(sr.material.color.r,
                         sr.material.color.g,
                         sr.material.color.b, 1f);
-        canDamage = true;
     }
 
 }

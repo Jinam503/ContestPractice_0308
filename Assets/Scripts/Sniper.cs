@@ -13,7 +13,7 @@ public class Sniper : Enemy
     protected override void Awake()
     {
         base.Awake();
-        hp = 10;
+        hp = 20;
         
         warningBoxSpritrRenderer = warningBox.GetComponent<SpriteRenderer>();
         StartCoroutine(Attack());

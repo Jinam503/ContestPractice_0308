@@ -14,8 +14,9 @@ public class Player : MonoBehaviour
     public bool cantDie;
 
     public int hp = 10;
-    public int gas = 100;
-    public int bulletLvl = 3;
+    public float gas = 100f;
+    private int CurBulletLvl;
+    private int MaxBulletLvl = 4;
 
     public Image hpBar;
     public Image gasBar;
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        CurBulletLvl = 1;
         sr = GetComponent<SpriteRenderer>();
         gameOverPanel.gameObject.SetActive(false);
         gameObject.SetActive(true);
@@ -41,6 +43,12 @@ public class Player : MonoBehaviour
         Move();
         Shoot();
         R();
+        Gas_Hp();
+        
+    }
+    private void Gas_Hp()
+    {
+        gas -= Time.deltaTime;
         hpBar.fillAmount = hp * 0.1f;
         gasBar.fillAmount = gas * 0.01f;
         if (hp <= 0)
@@ -48,6 +56,7 @@ public class Player : MonoBehaviour
             gameObject.SetActive(false);
             gameOverPanel.gameObject.SetActive(true);
         }
+        if (hp > 10) hp = 10;
     }
     private void R()
     {
@@ -59,7 +68,8 @@ public class Player : MonoBehaviour
         Vector3 firstBulletPos;
         Vector3 secondBulletPos;
         Vector3 thirdBulletPos;
-        switch (bulletLvl)
+        Vector3 fourthBulletPos;
+        switch (CurBulletLvl)
         {
             case 1:
                 secondBulletPos = new Vector3(transform.position.x + 0f, transform.position.y + 0.4f, 0);
@@ -72,7 +82,6 @@ public class Player : MonoBehaviour
                 Instantiate(playerBullet, secondBulletPos, transform.rotation);
                 break;
             case 3:
-                Debug.Log("d");
                 firstBulletPos = new Vector3(transform.position.x - 0.2f, transform.position.y + 0.4f, 0);
                 secondBulletPos = new Vector3(transform.position.x + 0.2f, transform.position.y + 0.4f, 0);
                 thirdBulletPos = new Vector3(transform.position.x + 0f, transform.position.y + 0.7f, 0);
@@ -81,6 +90,14 @@ public class Player : MonoBehaviour
                 Instantiate(playerBullet, thirdBulletPos, transform.rotation);
                 break;
             case 4:
+                firstBulletPos = new Vector3(transform.position.x - 0.3f, transform.position.y + 0.4f, 0);
+                secondBulletPos = new Vector3(transform.position.x + 0.3f, transform.position.y + 0.4f, 0);
+                thirdBulletPos = new Vector3(transform.position.x + -1f, transform.position.y + 0.7f, 0);
+                fourthBulletPos = new Vector3(transform.position.x + 1f, transform.position.y + 0.7f, 0);
+                Instantiate(playerBullet, firstBulletPos, transform.rotation);
+                Instantiate(playerBullet, secondBulletPos, transform.rotation);
+                Instantiate(playerBullet, thirdBulletPos, transform.rotation);
+                Instantiate(playerBullet, fourthBulletPos, transform.rotation);
                 break;
         }
         
@@ -119,6 +136,24 @@ public class Player : MonoBehaviour
             Bullet b = collision.gameObject.GetComponent<Bullet>();
             Onhit(b.damage);
         }
+        else if(collision.gameObject.tag == "Item")
+        {
+            Item item = collision.gameObject.GetComponent<Item>();
+            switch (item.type)
+            {
+                case "Gas":
+                    gas += 100;
+                    break;
+                case "Fix":
+                    hp += 5;
+                    break;
+                case " Upgrade":
+                    CurBulletLvl++;
+                    if (CurBulletLvl > MaxBulletLvl) CurBulletLvl = MaxBulletLvl;
+                    break;
+            }
+            Destroy(item);
+        }
     }
     void Onhit(int damage)
     {
@@ -128,7 +163,7 @@ public class Player : MonoBehaviour
            new Color(sr.material.color.r,
                      sr.material.color.g,
                      sr.material.color.b, 0.5f);
-        Invoke("ReturnColor", 1f);
+        Invoke("ReturnColor", 0.5f);
     }
     void ReturnColor()
     {

@@ -9,7 +9,7 @@ public class MachineGun : Enemy
     protected override void Awake()
     {
         base.Awake();
-        hp = 20;
+        hp = 30;
         StartCoroutine(Attack());
     }
 
