@@ -32,7 +32,7 @@ public class Sniper : Enemy
     }
     IEnumerator Attack()
     {
-        
+        yield return new WaitForSeconds(Random.Range(0.0f, 2.0f));
         warningBox.gameObject.SetActive(true);
         bullet.gameObject.SetActive(false);
         warningBoxSpritrRenderer.material.color =
@@ -73,7 +73,7 @@ public class Sniper : Enemy
         yield return new WaitForSeconds(1);
         bullet.gameObject.SetActive(false);
         isAiming = true;
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
         StartCoroutine(Attack());
     }
 }

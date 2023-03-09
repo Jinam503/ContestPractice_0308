@@ -23,7 +23,7 @@ public class MachineGun : Enemy
     IEnumerator Attack()
     {
         Instantiate(bullet, transform.position, transform.rotation);
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.8f);
         StartCoroutine(Attack());
     }
 }

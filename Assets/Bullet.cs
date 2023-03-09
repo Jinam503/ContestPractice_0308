@@ -28,7 +28,7 @@ public class Bullet : MonoBehaviour
         switch (bt)
         {
             case BulletType.MachineGun:
-                transform.Translate(Vector3.up * 8 * Time.deltaTime);
+                transform.Translate(Vector3.up * 6 * Time.deltaTime);
                 break;
             case BulletType.Player:
                 transform.Translate(Vector3.up * 25 * Time.deltaTime);

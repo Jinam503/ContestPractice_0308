@@ -14,8 +14,11 @@ public class Player : MonoBehaviour
     public bool cantDie;
 
     public int hp = 10;
+    public int gas = 100;
+    public int bulletLvl = 3;
 
     public Image hpBar;
+    public Image gasBar;
     public GameObject gameOverPanel;
 
     private bool isTriggerT = false;
@@ -39,6 +42,7 @@ public class Player : MonoBehaviour
         Shoot();
         R();
         hpBar.fillAmount = hp * 0.1f;
+        gasBar.fillAmount = gas * 0.01f;
         if (hp <= 0)
         {
             gameObject.SetActive(false);
@@ -52,10 +56,34 @@ public class Player : MonoBehaviour
     private void Shoot()
     {
         if (curShootDelay < maxShootDelay) return;
-        Vector3 firstBulletPos = new Vector3(transform.position.x - 0.15f, transform.position.y+ 0.4f, 0);
-        Vector3 secondBulletPos = new Vector3(transform.position.x + 0.15f, transform.position.y+ 0.4f, 0);
-        Instantiate(playerBullet, firstBulletPos, transform.rotation);
-        Instantiate(playerBullet, secondBulletPos, transform.rotation);
+        Vector3 firstBulletPos;
+        Vector3 secondBulletPos;
+        Vector3 thirdBulletPos;
+        switch (bulletLvl)
+        {
+            case 1:
+                secondBulletPos = new Vector3(transform.position.x + 0f, transform.position.y + 0.4f, 0);
+                Instantiate(playerBullet, secondBulletPos, transform.rotation);
+                break;
+            case 2:
+                firstBulletPos = new Vector3(transform.position.x - 0.15f, transform.position.y + 0.4f, 0);
+                secondBulletPos = new Vector3(transform.position.x + 0.15f, transform.position.y + 0.4f, 0);
+                Instantiate(playerBullet, firstBulletPos, transform.rotation);
+                Instantiate(playerBullet, secondBulletPos, transform.rotation);
+                break;
+            case 3:
+                Debug.Log("d");
+                firstBulletPos = new Vector3(transform.position.x - 0.2f, transform.position.y + 0.4f, 0);
+                secondBulletPos = new Vector3(transform.position.x + 0.2f, transform.position.y + 0.4f, 0);
+                thirdBulletPos = new Vector3(transform.position.x + 0f, transform.position.y + 0.7f, 0);
+                Instantiate(playerBullet, firstBulletPos, transform.rotation);
+                Instantiate(playerBullet, secondBulletPos, transform.rotation);
+                Instantiate(playerBullet, thirdBulletPos, transform.rotation);
+                break;
+            case 4:
+                break;
+        }
+        
         curShootDelay = 0;
     }
     private void Move()

@@ -7,23 +7,46 @@ public class Enemy : MonoBehaviour
     public int hp;
     protected bool canAttack;
 
+    protected bool canDamage = true;
+
     protected Transform target;
+
+    private SpriteRenderer sr;
     protected virtual void Awake()
     {
         target = GameObject.Find("Player").transform;
-
+        sr = gameObject.GetComponent<SpriteRenderer>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "PlayerBullet")
         {
             Bullet b = collision.gameObject.GetComponent<Bullet>();
-            Onhit(b.damage);
+            if(canDamage) Onhit(b.damage);
         }
+    }
+    public void MoveToTarget(Transform t)
+    {
+        transform.position = Vector2.MoveTowards(transform.position, t.position, Time.deltaTime);
     }
     void Onhit(int damage)
     {
         hp -= damage;
+        canDamage = false;
+        sr.material.color =
+           new Color(sr.material.color.r,
+                     sr.material.color.g,
+                     sr.material.color.b, 0.5f);
+        Invoke("ReturnColor", 0.01f);
+    }
+    void ReturnColor()
+    {
+
+        sr.material.color =
+              new Color(sr.material.color.r,
+                        sr.material.color.g,
+                        sr.material.color.b, 1f);
+        canDamage = true;
     }
 
 }
