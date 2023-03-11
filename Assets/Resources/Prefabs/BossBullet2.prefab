@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5044938483539382963}
   m_Layer: 0
   m_Name: BossBullet2
-  m_TagString: Untagged
+  m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8a36d3eac7d2e54997663d135217603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bt: 5
+  bt: 4
   damage: 0
 --- !u!61 &5044938483539382963
 BoxCollider2D:

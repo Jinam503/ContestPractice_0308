@@ -5,8 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+    public bool isStageClear_1;
+    public bool isStageClear_2;
+    public bool isStageClear_3;
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
     private void Update()
     {
+
+  
         if (Input.GetKeyDown(KeyCode.F1))
         {
             Scene scene = SceneManager.GetActiveScene();
@@ -35,7 +51,6 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F6))
         {
             Scene scene = SceneManager.GetActiveScene();
-            if (scene.name == "PickStage" || scene.name == "Main Menu") return;
             switch (scene.name)
             {
                 case "Stage 1":
@@ -47,7 +62,8 @@ public class GameManager : MonoBehaviour
                 case "Stage 3":
                         MoveScene(1);
                         break;
-
+                default:
+                    break;
                 }
         }
         

@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
             gameOverPanel.gameObject.SetActive(true);
         }
         if (hp > 10) hp = 10;
-        if (gas > 100) hp = 100;
+        if (gas > 100) gas = 100;
     }
     private void R()
     {

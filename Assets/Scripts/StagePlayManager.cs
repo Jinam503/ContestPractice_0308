@@ -12,6 +12,10 @@ public class StagePlayManager : MonoBehaviour
         currentWave = wave;
         StartCoroutine(SpawnEnemy());
     }
+    public void MS(int a)
+    {
+        GameManager.Instance.MoveScene(a);
+    }
     private IEnumerator SpawnEnemy()
     {
         int spawnEnemyCount = 0;

@@ -11,7 +11,7 @@ public class WaveSystem : MonoBehaviour
 
     public Text waveText;
 
-    
+    public GameObject gameClearPanel;
 
     private bool isChangingWave = false;
 
@@ -27,7 +27,7 @@ public class WaveSystem : MonoBehaviour
     }
     public void StartWave()
     {
-        if (enemies.Length == 0 && currentWave < waves.Length - 1 && !isChangingWave)
+        if (enemies.Length == 0 && currentWave <= waves.Length - 1 && !isChangingWave)
         {
             currentWave++;
             isChangingWave = true;
@@ -36,9 +36,17 @@ public class WaveSystem : MonoBehaviour
     }
     IEnumerator WaveText()
     {
+        if (currentWave == waves.Length)
+        {
+            gameClearPanel.SetActive(true);
+            GameManager.Instance.isStageClear_1 = true;
+            yield return null;
+
+        }
         waveText.gameObject.SetActive(true);
         waveText.text = "Wave " + (currentWave + 1);
         if (currentWave == waves.Length - 1) waveText.text = "BOSS";
+        
         yield return new WaitForSeconds(2f);
         waveText.gameObject.SetActive(false);
         yield return new WaitForSeconds(1f);

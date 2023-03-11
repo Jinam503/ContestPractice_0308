@@ -5,29 +5,30 @@ using UnityEngine.UI;
 
 public class StageManager : MonoBehaviour
 {
-    public bool isStageClear_1;
-    public bool isStageClear_2;
-    public bool isStageClear_3;
+    
 
-    public bool isStageLocked_1;
     public bool isStageLocked_2;
+    public bool isStageLocked_3;
 
     public Text text1;
     public Text text2;
     public Text text3;
-    
+    public void MS(int a)
+    {
+        GameManager.Instance.MoveScene(a);
+    }
     private void Update()
     {
         
-        if (isStageClear_1) text1.text = 1 + " ¼º°ø";
+        if (GameManager.Instance.isStageClear_1) text1.text = 1 + " Clear";
         else text1.text = 1 + "";
 
-        if (isStageClear_2) text2.text = 2 + " ¼º°ø";
-        else if (!isStageClear_1) text2.text = 2 + "Àá±è";
+        if (GameManager.Instance.isStageClear_2) text2.text = 2 + " Clear";
+        else if (!GameManager.Instance.isStageClear_1) text2.text = 2 + " Locked";
         else text2.text = 2 + "";
 
-        if (isStageClear_3) text2.text = 3 + " ¼º°ø";
-        else if (!isStageClear_2) text3.text = 3 + "Àá±è";
+        if (GameManager.Instance.isStageClear_3) text2.text = 3 + " Clear";
+        else if (!GameManager.Instance.isStageClear_2) text3.text = 3 + "Locked";
         else text3.text = 3 + "";
     }
 }

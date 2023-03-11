@@ -14,7 +14,7 @@ public class Boss : Enemy
     {
         base.Awake();
         bulletPos = transform.GetChild(0).gameObject;
-        hp = 10000;
+        hp = 400;
         StartCoroutine(Attack());
     }
     protected override void Update()
@@ -47,11 +47,11 @@ public class Boss : Enemy
             case 2:
                 for(int i = 0; i < 20; i ++)
                 {
-                    GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().moveSpeed = 5;
+                    GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().moveSpeed = 2.5f;
                     yield return new WaitForSeconds(1f);
                 }
                 
-                GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().moveSpeed = 10;
+                GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().moveSpeed = 5;
                 break;
             case 3:
                 rot = Random.Range(130, 160);
@@ -76,7 +76,7 @@ public class Boss : Enemy
                     for (int j = 0; j < 2; j++)
                     {
                         bulletPos.transform.eulerAngles = new Vector3(0, 0, rot);
-                        Instantiate(bullet_2, bulletPos.transform.position, bulletPos.transform.rotation);
+                        Instantiate(bullet_1, bulletPos.transform.position, bulletPos.transform.rotation);
                         rot += 30;
                     }
 
