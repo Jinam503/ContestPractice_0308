@@ -15,9 +15,10 @@ public class StageManager : MonoBehaviour
     public Text text1;
     public Text text2;
     public Text text3;
-
+    
     private void Update()
     {
+        
         if (isStageClear_1) text1.text = 1 + " ¼º°ø";
         else text1.text = 1 + "";
 

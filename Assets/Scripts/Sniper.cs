@@ -22,7 +22,6 @@ public class Sniper : Enemy
     protected override void Update()
     {
         base.Update();
-        if (hp <= 0) Destroy(gameObject);
         if (isAiming)
         {
             Vector3 dir = target.position - transform.position;

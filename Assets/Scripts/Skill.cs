@@ -21,7 +21,11 @@ public class Skill : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            skill_1 = 0f;
+            skill_2 = 0f;
+        }
         if (Input.GetKeyDown(KeyCode.Q) && skill_1 <= 0f)
         {
             GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().hp += 5;

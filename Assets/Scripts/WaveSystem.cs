@@ -20,7 +20,10 @@ public class WaveSystem : MonoBehaviour
     {
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         StartWave();
-
+        if (Input.GetKeyDown(KeyCode.F7))
+        {
+            currentWave = 3;
+        }
     }
     public void StartWave()
     {
