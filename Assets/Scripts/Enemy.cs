@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour
     {
 
         if (hp <= 0) return;
-        if (gameObject.name == "Boss")
+        if (gameObject.name == "Boss (Clone)")
         {
             int ran = Random.Range(0, 9);
             if (ran == 1)
