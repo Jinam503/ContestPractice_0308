@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour
         if (hp <= 0) return;
         if (gameObject.name == "Boss(Clone)")
         {
-            int ran = Random.Range(0, 9);
+            int ran = Random.Range(0, 300);
             if (ran == 1)
             {
                 GameObject prefab = Resources.Load<GameObject>("Prefabs/GasItem");
@@ -72,19 +72,19 @@ public class Enemy : MonoBehaviour
             {
                 return;
             }
-            else if (ran < 7)
+            else if (ran ==7)
             {
                 GameObject prefab = Resources.Load<GameObject>("Prefabs/FixItem");
                 Vector2 v = new Vector2(transform.position.x + Random.Range(-1f, 1f), transform.position.y);
                 Instantiate(prefab, v, prefab.transform.rotation);
             }
-            else if (ran < 9) 
+            else if (ran ==8) 
             {
                 GameObject prefab = Resources.Load<GameObject>("Prefabs/UpgradeBulletLvlItem");
                 Vector2 v = new Vector2(transform.position.x + Random.Range(-1f, 1f), transform.position.y);
                 Instantiate(prefab, v, prefab.transform.rotation);
             }
-            else
+            else if( ran == 9)
             {
                 GameObject prefab = Resources.Load<GameObject>("Prefabs/BarriorItem");
                 Vector2 v = new Vector2(transform.position.x + Random.Range(-1f, 1f), transform.position.y);

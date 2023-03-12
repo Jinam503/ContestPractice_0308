@@ -24,7 +24,7 @@ public class Boss : Enemy
     }
     IEnumerator Attack()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         StartCoroutine(Attack_());
         StartCoroutine(Attack());
     }
