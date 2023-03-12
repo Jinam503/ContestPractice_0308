@@ -57,7 +57,7 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (bt == BulletType.Sniper && bt == BulletType.Boss_3) return;
+        if (bt == BulletType.Sniper || bt == BulletType.Boss_3) return;
         if (collision.gameObject.tag == "BulletWall" ||
             (collision.gameObject.tag == "Barrior" && bt != BulletType.Player) ||
             (collision.gameObject.tag == "Player" && bt != BulletType.Player )||

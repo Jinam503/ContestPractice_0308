@@ -17,6 +17,7 @@ public class MachineGun : Enemy
     protected override void Update()
     {
         base.Update();
+        if (hp <= 0) Destroy(gameObject);
         Vector3 dir = target.position - transform.position;
         transform.rotation = Quaternion.FromToRotation(Vector2.up, dir);
     }

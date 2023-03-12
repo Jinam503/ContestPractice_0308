@@ -27,18 +27,21 @@ public class WaveSystem : MonoBehaviour
     }
     public void StartWave()
     {
-        
-        if (enemies.Length == 0 && currentWave < waves.Length - 1 && !isChangingWave)
+
+        if (enemies.Length == 0 && currentWave <= waves.Length - 1 && !isChangingWave)
         {
             currentWave++;
-            if (currentWave == waves.Length -1)
+            if (currentWave == waves.Length)
             {
-                gameClearPanel.SetActive(true);
+                gameClearPanel.gameObject.SetActive(true);
                 GameManager.Instance.isStageClear_1 = true;
-                return;
             }
-            isChangingWave = true;
-            StartCoroutine(WaveText());
+            if (GameManager.Instance.isStageClear_1 != true)
+            {
+                isChangingWave = true;
+                StartCoroutine(WaveText());
+            }
+            
         }
     }
     IEnumerator WaveText()

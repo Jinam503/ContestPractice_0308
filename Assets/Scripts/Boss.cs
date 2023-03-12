@@ -20,6 +20,7 @@ public class Boss : Enemy
     protected override void Update()
     {
         base.Update();
+        if (hp <= 0) Destroy(gameObject);
     }
     IEnumerator Attack()
     {

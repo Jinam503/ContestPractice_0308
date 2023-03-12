@@ -12,6 +12,7 @@ public class Tank : Enemy
     }
     protected override void Update()
     {
+        if (hp <= 0) Destroy(gameObject);
         base.Update();
     }
 }
